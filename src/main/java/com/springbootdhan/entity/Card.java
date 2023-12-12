@@ -1,12 +1,16 @@
 package com.springbootdhan.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Card {
 	@Id
 	private long id;
+	@OneToOne
 	private Account account;
 	private String cardNumber;
 	private String pin;
@@ -32,24 +36,20 @@ public class Card {
 		isDeleted = false;
 	}
 	private String initCardNumber() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 	private String initPin() {
-		// TODO Auto-generated method stub
-		return null;
+		return "1234";
 	}
 	private String initCvv() {
-		// TODO Auto-generated method stub
-		return null;
+		return "256";
 	}
 	private int initExpiryMonth() {
-		// TODO Auto-generated method stub
-		return 0;
+		return new Date().getMonth();
 	}
 	private int initExpiryYear() {
-		// TODO Auto-generated method stub
-		return 0;
+		return new Date().getYear() + 8;
 	}
 	public String getPin() {
 		return pin;
