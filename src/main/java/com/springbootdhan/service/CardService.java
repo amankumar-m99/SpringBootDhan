@@ -1,7 +1,15 @@
 package com.springbootdhan.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 import com.springbootdhan.entity.Card;
 
-public interface CardService extends JpaRepository<Card, Integer>{}
+public interface CardService {
+
+	public List<Card> getAllCards();
+	public Card getCard(String id);
+	public Card addCard(Card card);
+	public Card updateCard(Card card);
+	public void deleteCard(Card card);
+	public void deleteCard(String id);
+}

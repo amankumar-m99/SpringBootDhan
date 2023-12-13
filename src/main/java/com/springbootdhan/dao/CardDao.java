@@ -1,5 +1,7 @@
 package com.springbootdhan.dao;
 
-public class CardDao {
+import org.springframework.data.jpa.repository.JpaRepository;
 
-}
+import com.springbootdhan.entity.Card;
+
+public interface CardDao extends JpaRepository<Card, Integer>{}

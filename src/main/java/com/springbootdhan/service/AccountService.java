@@ -1,7 +1,15 @@
 package com.springbootdhan.service;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
 import com.springbootdhan.entity.Account;
 
-public interface AccountService extends JpaRepository<Account, Integer> {}
+public interface AccountService {
+
+	public List<Account> getAllAccounts();
+	public Account getAccount(String id);
+	public Account addAccount(Account account);
+	public Account updateAccount(Account account);
+	public void deleteAccount(Account account);
+	public void deleteAccount(String id);
+}

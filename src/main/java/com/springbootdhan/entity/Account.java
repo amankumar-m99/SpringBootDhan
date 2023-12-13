@@ -2,13 +2,20 @@ package com.springbootdhan.entity;
 
 import java.util.Date;
 
+import com.springbootdhan.util.Formatter;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 public class Account {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String accountNumber;
 	@OneToOne
@@ -16,54 +23,33 @@ public class Account {
 	private String accountHolderName;
 	private String ifscCode;
 	private float balance;
+	@Temporal(TemporalType.DATE)
+	private Date dateOfOpening;
 	private boolean isActive;
 	private boolean isDeleted;
-	public Account(String accountHolderName, float balance) {
+	public Account() {
 		super();
-		this.accountHolderName = accountHolderName;
+	}
+	public Account(SemiAccount semiAccount) {
+		super();
+		this.accountHolderName = semiAccount.getAccountHolderName();
 		this.accountNumber = initAccountNumber();
+		if(semiAccount.isCardRequested())
+			this.card = new Card(this);
 		this.ifscCode = initIfscCode();
-		this.balance = balance;
+		this.balance = semiAccount.getOpeningBalance();
 		this.isActive = true;
 		this.isDeleted = false;
 	}
 	private String initAccountNumber() {
 		Date date = new Date();
-		String year = formatYear(date.getYear());
-		String month = formatMonth(date.getMonth());
-		String day = formatDay(date.getDay());
-		String hour = formatHour(date.getHours());
-		String min = formatMinutes(date.getMinutes());
-		String sec = formatSeconds(date.getSeconds());
+		String year = Formatter.formatYear(date.getYear());
+		String month = Formatter.formatTwo(date.getMonth());
+		String day = Formatter.formatTwo(date.getDay());
+		String hour = Formatter.formatTwo(date.getHours());
+		String min = Formatter.formatTwo(date.getMinutes());
+		String sec = Formatter.formatTwo(date.getSeconds());
 		return String.format("%s%s%s%s%s%s", year, month, day, hour, min, sec);
-	}
-	private String formatYear(int year) {
-		return String.valueOf(year);
-	}
-	private String formatMonth(int month) {
-		if(month < 10)
-			return "0"+ String.valueOf(month);
-		return String.valueOf(month);
-	}
-	private String formatDay(int day) {
-		if(day < 10)
-			return "0"+String.valueOf(day);
-		return String.valueOf(day);
-	}
-	private String formatHour(int hour) {
-		if(hour < 10)
-			return "0"+String.valueOf(hour);
-		return String.valueOf(hour);
-	}
-	private String formatMinutes(int minutes) {
-		if(minutes < 10)
-			return "0"+String.valueOf(minutes);
-		return String.valueOf(minutes);
-	}
-	private String formatSeconds(int seconds) {
-		if(seconds < 10)
-			return "0"+String.valueOf(seconds);
-		return String.valueOf(seconds);
 	}
 	private String initIfscCode() {
 		return "MYBNK000123";
@@ -94,6 +80,12 @@ public class Account {
 	}
 	public String getIfscCode() {
 		return ifscCode;
+	}
+	public Date getDateOfOpening() {
+		return dateOfOpening;
+	}
+	public void setDateOfOpening(Date dateOfOpening) {
+		this.dateOfOpening = dateOfOpening;
 	}
 	public boolean isActive() {
 		return isActive;
