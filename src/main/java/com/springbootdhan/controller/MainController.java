@@ -75,11 +75,12 @@ public class MainController {
 	@PostMapping(path = "/account", consumes = "application/json")
 	public Account addAccount(@RequestBody SemiAccount semiAccount) {
 		Account account = new Account(semiAccount);
-		Card card = account.getCard();
-		if(card != null) {
+		account = accountService.addAccount(account);
+		if(semiAccount.isCardRequested()) {
+			Card card = new Card(account);
 			cardService.addCard(card);
 		}
-		return accountService.addAccount(account);
+		return account;
 	}
 
 	@CrossOrigin(origins = origin)

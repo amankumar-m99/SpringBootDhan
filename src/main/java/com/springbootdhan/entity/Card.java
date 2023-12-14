@@ -2,18 +2,23 @@ package com.springbootdhan.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springbootdhan.util.Formatter;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Card {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Account account;
 	private String cardNumber;
 	private String pin;
@@ -24,13 +29,15 @@ public class Card {
 	private boolean isBlocked;
 	private boolean isActive;
 	private boolean isDeleted;
+	@Transient
+	private static final int EXPIRY_YEAR_DURATION = 8;
 	public Card() {
 		super();
 	}
 	public Card(Account account) {
 		super();
 		this.account = account;
-		this.account.setCard(this);
+//		this.account.setCard(this);
 		cardNumber = initCardNumber();
 		pin = initPin();
 		cvv = initCvv();
@@ -57,11 +64,13 @@ public class Card {
 	private String initCvv() {
 		return "256";
 	}
+	@SuppressWarnings("deprecation")
 	private int initExpiryMonth() {
-		return new Date().getMonth();
+		return new Date().getMonth()+1;
 	}
+	@SuppressWarnings("deprecation")
 	private int initExpiryYear() {
-		return new Date().getYear() + 8;
+		return (new Date().getYear() + 1900) + EXPIRY_YEAR_DURATION;
 	}
 	public long getId() {
 		return id;
@@ -111,22 +120,22 @@ public class Card {
 	public void setInValidAttempts(int inValidAttempts) {
 		this.inValidAttempts = inValidAttempts;
 	}
-	public boolean isBlocked() {
+	public boolean getIsBlocked() {
 		return isBlocked;
 	}
-	public void setBlocked(boolean isBlocked) {
+	public void setIsBlocked(boolean isBlocked) {
 		this.isBlocked = isBlocked;
 	}
-	public boolean isActive() {
+	public boolean getIsActive() {
 		return isActive;
 	}
-	public void setActive(boolean isActive) {
+	public void setIsActive(boolean isActive) {
 		this.isActive = isActive;
 	}
-	public boolean isDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 }

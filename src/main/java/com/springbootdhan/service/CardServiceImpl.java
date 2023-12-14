@@ -26,7 +26,7 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public Card getCard(String id) {
 		try {
-			int dbId = Integer.parseInt(id);
+			Long dbId = Long.parseLong(id);
 			Card card = cardDao.getReferenceById(dbId);
 			return card;
 		}catch (NumberFormatException e) {
