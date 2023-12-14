@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.springbootdhan.util.Formatter;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -12,7 +13,7 @@ import jakarta.persistence.OneToOne;
 public class Card {
 	@Id
 	private long id;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Account account;
 	private String cardNumber;
 	private String pin;

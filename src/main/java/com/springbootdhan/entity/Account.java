@@ -2,8 +2,11 @@ package com.springbootdhan.entity;
 
 import java.util.Date;
 
+import org.hibernate.annotations.Cache;
+
 import com.springbootdhan.util.Formatter;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,6 +41,7 @@ public class Account {
 			this.card = new Card(this);
 		this.ifscCode = initIfscCode();
 		this.balance = semiAccount.getOpeningBalance();
+		this.dateOfOpening = new Date();
 		this.isActive = true;
 		this.isDeleted = false;
 	}

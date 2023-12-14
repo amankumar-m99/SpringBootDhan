@@ -28,7 +28,7 @@ public class SemiAccount {
 	public boolean isCardRequested() {
 		return isCardRequested;
 	}
-	public void setCardRequested(boolean isCardRequested) {
+	public void setIsCardRequested(boolean isCardRequested) {
 		this.isCardRequested = isCardRequested;
 	}
 }
