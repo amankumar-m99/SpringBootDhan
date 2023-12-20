@@ -5,10 +5,12 @@ import java.util.Date;
 import com.springbootdhan.util.Formatter;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -20,6 +22,7 @@ public class Account {
 	private long id;
 	private String accountNumber;
 //	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(nullable = true)
 //	private Card card;
 	private String accountHolderName;
 	private String ifscCode;

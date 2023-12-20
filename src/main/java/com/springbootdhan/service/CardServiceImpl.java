@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.springbootdhan.dao.CardDao;
 import com.springbootdhan.entity.Card;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class CardServiceImpl implements CardService {
 
@@ -26,10 +28,15 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public Card getCard(String id) {
 		try {
-			Long dbId = Long.parseLong(id);
-			Card card = cardDao.getReferenceById(dbId);
-			return card;
+//			Long dbId = Long.parseLong(id);
+//			Card card = cardDao.getReferenceById(dbId);
+			for(Card card:getAllCards()) {
+				if(card.getCardNumber().equals(id)) {
+					return card;
+				}
+			}
 		}catch (NumberFormatException e) {
+		}catch (EntityNotFoundException  e) {
 		}
 		return null;
 	}

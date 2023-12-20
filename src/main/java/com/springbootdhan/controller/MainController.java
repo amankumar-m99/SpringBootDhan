@@ -56,8 +56,9 @@ public class MainController {
 
 	@CrossOrigin(origins = origin)
 	@GetMapping("/cards")
-	public List<Card> getAllCards() {
-		return cardService.getAllCards();
+	public ResponseEntity<List<Card>> getAllCards() {
+		List<Card> cards = cardService.getAllCards();
+		return ResponseEntity.ok(cards);
 	}
 
 	@CrossOrigin(origins = origin)

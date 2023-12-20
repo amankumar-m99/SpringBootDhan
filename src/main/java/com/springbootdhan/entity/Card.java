@@ -2,6 +2,7 @@ package com.springbootdhan.entity;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.springbootdhan.util.Formatter;
 
@@ -18,7 +19,7 @@ public class Card {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@OneToOne
-	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	private Account account;
 	private String cardNumber;
 	private String pin;
@@ -137,5 +138,12 @@ public class Card {
 	}
 	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	@Override
+	public String toString() {
+		return "Card [id=" + id + ", account=" + account + ", cardNumber=" + cardNumber + ", pin=" + pin + ", cvv="
+				+ cvv + ", expiryMonth=" + expiryMonth + ", expiryYear=" + expiryYear + ", inValidAttempts="
+				+ inValidAttempts + ", isBlocked=" + isBlocked + ", isActive=" + isActive + ", isDeleted=" + isDeleted
+				+ "]";
 	}
 }
