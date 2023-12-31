@@ -12,4 +12,5 @@ public interface CardService {
 	public Card updateCard(Card card);
 	public void deleteCard(Card card);
 	public void deleteCard(String id);
+	public void recordInvalidAttemopt(String id);
 }

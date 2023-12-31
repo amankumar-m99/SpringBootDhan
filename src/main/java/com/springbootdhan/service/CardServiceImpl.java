@@ -22,6 +22,7 @@ public class CardServiceImpl implements CardService {
 		List<Card> cards = cardDao.findAll();
 		if(cards == null)
 			return Collections.emptyList();
+		Collections.reverse(cards);
 		return cards;
 	}
 
@@ -59,5 +60,15 @@ public class CardServiceImpl implements CardService {
 	@Override
 	public void deleteCard(String id) {
 		cardDao.delete(getCard(id));
+	}
+
+	public void recordInvalidAttemopt(String id) {
+		for(Card card:getAllCards()) {
+			if(card.getCardNumber().equals(id)) {
+				card.getInValidAttempts();
+				card.setInValidAttempts(card.getInValidAttempts() + 1);
+				updateCard(card);
+			}
+		}
 	}
 }

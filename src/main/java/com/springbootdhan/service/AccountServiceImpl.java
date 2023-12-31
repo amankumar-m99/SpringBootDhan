@@ -20,6 +20,7 @@ public class AccountServiceImpl implements AccountService{
 		List<Account> accounts = accountDao.findAll();
 		if(accounts == null)
 			return Collections.emptyList();
+		Collections.reverse(accounts);
 		return accounts;
 	}
 

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootdhan.entity.Account;
 import com.springbootdhan.entity.Card;
+import com.springbootdhan.entity.InValidCard;
 import com.springbootdhan.entity.SemiAccount;
 import com.springbootdhan.entity.SemiCard;
 import com.springbootdhan.service.AccountService;
@@ -99,9 +100,7 @@ public class MainController {
 	@CrossOrigin(origins = origin)
 	@PutMapping("/account")
 	public Account updateAccount(@RequestBody Account account) {
-//		addressService.updateAddress(person.getAddress());
-//		return this.personService.updatePerson(person);
-		return null;
+		return this.accountService.updateAccount(account);
 	}
 
 	@CrossOrigin(origins = origin)
@@ -138,5 +137,11 @@ public class MainController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@CrossOrigin(origins = origin)
+	@PostMapping(path = "/card/invalid", consumes = "application/json")
+	public void recordInValidAttempts(@RequestBody InValidCard inValidCard) {
+		cardService.recordInvalidAttemopt(inValidCard.getCardNumber());
 	}
 }
