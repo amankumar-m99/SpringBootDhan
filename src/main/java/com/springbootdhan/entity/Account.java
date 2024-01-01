@@ -2,16 +2,13 @@ package com.springbootdhan.entity;
 
 import java.util.Date;
 
+import com.springbootdhan.model.AccountForm;
 import com.springbootdhan.util.Formatter;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
@@ -34,14 +31,14 @@ public class Account {
 	public Account() {
 		super();
 	}
-	public Account(SemiAccount semiAccount) {
+	public Account(AccountForm accountForm) {
 		super();
-		this.accountHolderName = semiAccount.getAccountHolderName();
+		this.accountHolderName = accountForm.getAccountHolderName();
 		this.accountNumber = initAccountNumber();
-//		if(semiAccount.isCardRequested())
+//		if(accountForm.isCardRequested())
 //			this.card = new Card(this);
 		this.ifscCode = initIfscCode();
-		this.balance = semiAccount.getOpeningBalance();
+		this.balance = accountForm.getOpeningBalance();
 		this.dateOfOpening = new Date();
 		this.isActive = true;
 		this.isDeleted = false;

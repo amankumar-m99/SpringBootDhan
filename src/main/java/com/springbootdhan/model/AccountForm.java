@@ -1,13 +1,13 @@
-package com.springbootdhan.entity;
+package com.springbootdhan.model;
 
-public class SemiAccount {
+public class AccountForm {
 	private String accountHolderName;
 	private float openingBalance;
 	private boolean isCardRequested;
-	public SemiAccount() {
+	public AccountForm() {
 		super();
 	}
-	public SemiAccount(String accountHolderName, float openingBalance, boolean isCardRequested) {
+	public AccountForm(String accountHolderName, float openingBalance, boolean isCardRequested) {
 		super();
 		this.accountHolderName = accountHolderName;
 		this.openingBalance = openingBalance;

@@ -27,10 +27,18 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public Card getCard(String id) {
+	public Card getCardById(String id) {
 		try {
-//			Long dbId = Long.parseLong(id);
-//			Card card = cardDao.getReferenceById(dbId);
+			Long dbId = Long.parseLong(id);
+			Card card = cardDao.getReferenceById(dbId);
+		}catch (NumberFormatException e) {
+		}catch (EntityNotFoundException  e) {
+		}
+		return null;
+	}
+
+	public Card getCardByNumber(String id) {
+		try {
 			for(Card card:getAllCards()) {
 				if(card.getCardNumber().equals(id)) {
 					return card;
@@ -59,7 +67,7 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public void deleteCard(String id) {
-		cardDao.delete(getCard(id));
+		cardDao.delete(getCardById(id));
 	}
 
 	public void recordInvalidAttemopt(String id) {

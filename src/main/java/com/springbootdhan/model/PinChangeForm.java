@@ -1,13 +1,13 @@
 package com.springbootdhan.model;
 
-public class pinChangeModel {
+public class PinChangeForm {
 	private String cardNumber;
 	private String pin;
-	public pinChangeModel() {
+	public PinChangeForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public pinChangeModel(String cardNumber, String pin) {
+	public PinChangeForm(String cardNumber, String pin) {
 		super();
 		this.cardNumber = cardNumber;
 		this.pin = pin;

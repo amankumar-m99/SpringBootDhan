@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springbootdhan.data.StaticData;
 import com.springbootdhan.entity.Account;
 import com.springbootdhan.entity.Card;
-import com.springbootdhan.entity.SemiAccount;
+import com.springbootdhan.model.AccountForm;
 import com.springbootdhan.service.AccountService;
 import com.springbootdhan.service.CardService;
 
@@ -45,10 +45,10 @@ public class AccountController {
 	}
 
 	@PostMapping(path = "/account", consumes = "application/json")
-	public Account addAccount(@RequestBody SemiAccount semiAccount) {
-		Account account = new Account(semiAccount);
+	public Account addAccount(@RequestBody AccountForm accountForm) {
+		Account account = new Account(accountForm);
 		account = accountService.addAccount(account);
-		if(semiAccount.isCardRequested()) {
+		if(accountForm.isCardRequested()) {
 			Card card = new Card(account);
 			cardService.addCard(card);
 		}

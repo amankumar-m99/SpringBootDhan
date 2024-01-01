@@ -1,12 +1,12 @@
 package com.springbootdhan.model;
 
-public class DepositModel {
+public class DepositForm {
 	private String accountNumber;
 	private String amount;
-	public DepositModel() {
+	public DepositForm() {
 		// TODO Auto-generated constructor stub
 	}
-	public DepositModel(String accountNumber, String amount) {
+	public DepositForm(String accountNumber, String amount) {
 		super();
 		this.accountNumber = accountNumber;
 		this.amount = amount;

@@ -17,9 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springbootdhan.data.StaticData;
 import com.springbootdhan.entity.Account;
 import com.springbootdhan.entity.Card;
-import com.springbootdhan.entity.CardGet;
 import com.springbootdhan.entity.InValidCard;
-import com.springbootdhan.entity.SemiCard;
+import com.springbootdhan.model.CardForm;
 import com.springbootdhan.service.AccountService;
 import com.springbootdhan.service.CardService;
 
@@ -39,25 +38,25 @@ public class CardController {
 		return ResponseEntity.ok(cards);
 	}
 
-	@GetMapping("/card")
-	public ResponseEntity<Card> getCardByNumber(@RequestBody CardGet cardGet) {
-		Card card = cardService.getCard(cardGet.getCardNumber());
+	@GetMapping("/cardbyid/{id}")
+	public ResponseEntity<Card> getCardById(@PathVariable String id) {
+		Card card = cardService.getCardById(id);
 		if(card != null)
 			return ResponseEntity.ok(card);
 		return ResponseEntity.ofNullable(null);
 	}
 
-	@GetMapping("/card/{id}")
-	public ResponseEntity<Card> getCard(@PathVariable String id) {
-		Card card = cardService.getCard(id);
+	@GetMapping("/cardbynumber/{id}")
+	public ResponseEntity<Card> getCardByNumber(@PathVariable String id) {
+		Card card = cardService.getCardByNumber(id);
 		if(card != null)
 			return ResponseEntity.ok(card);
 		return ResponseEntity.ofNullable(null);
 	}
 
 	@PostMapping(path = "/card", consumes = "application/json")
-	public Card addCard(@RequestBody SemiCard semiCard) {
-		Account account = accountService.getAccount(semiCard.getAccountNumber());
+	public Card addCard(@RequestBody CardForm cardForm) {
+		Account account = accountService.getAccount(cardForm.getAccountNumber());
 		if(account == null)
 			return null;
 		Card card = new Card(account);

@@ -1,14 +1,14 @@
 package com.springbootdhan.model;
 
-public class FundTransferModel {
+public class FundTransferForm {
 	private String fromAccountNumber;
 	private String toAccountNumber;
 	private String amount;
-	public FundTransferModel() {
+	public FundTransferForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FundTransferModel(String fromAccountNumber, String toAccountNumber, String amount) {
+	public FundTransferForm(String fromAccountNumber, String toAccountNumber, String amount) {
 		super();
 		this.fromAccountNumber = fromAccountNumber;
 		this.toAccountNumber = toAccountNumber;
