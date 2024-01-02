@@ -36,9 +36,17 @@ public class AccountController {
 		return accountService.getAllAccounts();
 	}
 
-	@GetMapping("/account/{id}")
-	public ResponseEntity<Account> getAccount(@PathVariable String id) {
-		Account account = accountService.getAccount(id);
+	@GetMapping("/account/id/{id}")
+	public ResponseEntity<Account> getAccountById(@PathVariable String id) {
+		Account account = accountService.getAccountById(Long.parseLong(id));
+		if(account != null)
+			return ResponseEntity.ok(account);
+		return ResponseEntity.ofNullable(null);
+	}
+
+	@GetMapping("/account/number/{number}")
+	public ResponseEntity<Account> getAccountByNumber(@PathVariable String numberStr) {
+		Account account = accountService.getAccountByNumber(numberStr);
 		if(account != null)
 			return ResponseEntity.ok(account);
 		return ResponseEntity.ofNullable(null);
@@ -58,6 +66,11 @@ public class AccountController {
 	@PutMapping("/account")
 	public Account updateAccount(@RequestBody Account account) {
 		return this.accountService.updateAccount(account);
+	}
+
+	@PutMapping("/account/block/{id}")
+	public Account blockAccountByID(String id) {
+		return accountService.blockAccountById(Long.parseLong(id));
 	}
 
 	@DeleteMapping("/account/{id}")

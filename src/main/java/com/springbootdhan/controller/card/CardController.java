@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.springbootdhan.data.StaticData;
 import com.springbootdhan.entity.Account;
 import com.springbootdhan.entity.Card;
-import com.springbootdhan.entity.InValidCard;
 import com.springbootdhan.model.CardForm;
 import com.springbootdhan.service.AccountService;
 import com.springbootdhan.service.CardService;
@@ -65,25 +65,30 @@ public class CardController {
 
 	@PutMapping("/card")
 	public Card updateCard(@RequestBody Card card) {
-//		addressService.updateAddress(person.getAddress());
-//		return this.personService.updatePerson(person);
-		return null;
+		return cardService.updateCard(card);
+	}
+
+	@PatchMapping(path = "/card/invalidattempts/{id}", consumes = "application/json")
+	public Card recordInValidAttempts(@PathVariable String id) {
+		return cardService.recordInvalidAttemopt(id);
+	}
+
+	@PatchMapping(path = "/card/block/{id}")
+	public Card blockCard(@PathVariable String id) {
+		return cardService.blockCard(id);
 	}
 
 	@DeleteMapping("/card/{id}")
 	public ResponseEntity<HttpStatus> deleteCardById(@PathVariable String id) {
 		try {
-//			Person person = personService.getPerson(Integer.parseInt(id));
-//			this.addressService.deleteAddress(person.getAddress());
-//			this.personService.deletePerson(person);
-		}catch(Exception e) {
+			Long.parseLong(id);
+			cardService.deleteCard(id);
+		}catch(NumberFormatException nfe) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		catch(Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
-	}
-
-	@PostMapping(path = "/card/invalid", consumes = "application/json")
-	public void recordInValidAttempts(@RequestBody InValidCard inValidCard) {
-		cardService.recordInvalidAttemopt(inValidCard.getCardNumber());
 	}
 }

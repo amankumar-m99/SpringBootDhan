@@ -31,6 +31,7 @@ public class CardServiceImpl implements CardService {
 		try {
 			Long dbId = Long.parseLong(id);
 			Card card = cardDao.getReferenceById(dbId);
+			return card;
 		}catch (NumberFormatException e) {
 		}catch (EntityNotFoundException  e) {
 		}
@@ -61,6 +62,20 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
+	public Card blockCard(String id) {
+		for(Card card:getAllCards()) {
+			if(card.getCardNumber().equals(id)) {
+				card.getInValidAttempts();
+				card.setInValidAttempts(card.getInValidAttempts() + 1);
+				updateCard(card);
+				return card;
+			}
+		}
+		return null;
+		
+	}
+
+	@Override
 	public void deleteCard(Card card) {
 		cardDao.delete(card);
 	}
@@ -70,13 +85,15 @@ public class CardServiceImpl implements CardService {
 		cardDao.delete(getCardById(id));
 	}
 
-	public void recordInvalidAttemopt(String id) {
+	public Card recordInvalidAttemopt(String id) {
 		for(Card card:getAllCards()) {
 			if(card.getCardNumber().equals(id)) {
 				card.getInValidAttempts();
 				card.setInValidAttempts(card.getInValidAttempts() + 1);
 				updateCard(card);
+				return card;
 			}
 		}
+		return null;
 	}
 }
