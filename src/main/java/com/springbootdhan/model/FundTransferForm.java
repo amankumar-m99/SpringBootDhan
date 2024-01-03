@@ -1,34 +1,41 @@
 package com.springbootdhan.model;
 
 public class FundTransferForm {
-	private String fromAccountNumber;
-	private String toAccountNumber;
+	private String senderAccountNumber;
+	private String receiverAccountNumber;
 	private String amount;
+
 	public FundTransferForm() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public FundTransferForm(String fromAccountNumber, String toAccountNumber, String amount) {
+
+	public FundTransferForm(String senderAccountNumber, String receiverAccountNumber, String amount) {
 		super();
-		this.fromAccountNumber = fromAccountNumber;
-		this.toAccountNumber = toAccountNumber;
+		this.senderAccountNumber = senderAccountNumber;
+		this.receiverAccountNumber = receiverAccountNumber;
 		this.amount = amount;
 	}
-	public String getFromAccountNumber() {
-		return fromAccountNumber;
+
+	public String getSenderAccountNumber() {
+		return senderAccountNumber;
 	}
-	public void setFromAccountNumber(String fromAccountNumber) {
-		this.fromAccountNumber = fromAccountNumber;
+
+	public void setSenderAccountNumber(String senderAccountNumber) {
+		this.senderAccountNumber = senderAccountNumber;
 	}
-	public String getToAccountNumber() {
-		return toAccountNumber;
+
+	public String getReceiverAccountNumber() {
+		return receiverAccountNumber;
 	}
-	public void setToAccountNumber(String toAccountNumber) {
-		this.toAccountNumber = toAccountNumber;
+
+	public void setReceiverAccountNumber(String receiverAccountNumber) {
+		this.receiverAccountNumber = receiverAccountNumber;
 	}
+
 	public String getAmount() {
 		return amount;
 	}
+
 	public void setAmount(String amount) {
 		this.amount = amount;
 	}
