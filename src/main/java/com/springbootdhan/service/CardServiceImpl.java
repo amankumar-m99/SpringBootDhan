@@ -27,12 +27,10 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public Card getCardById(String id) {
+	public Card getCardById(long id) {
 		try {
-			Long dbId = Long.parseLong(id);
-			Card card = cardDao.getReferenceById(dbId);
+			Card card = cardDao.getReferenceById(id);
 			return card;
-		}catch (NumberFormatException e) {
 		}catch (EntityNotFoundException  e) {
 		}
 		return null;
@@ -62,38 +60,128 @@ public class CardServiceImpl implements CardService {
 	}
 
 	@Override
-	public Card blockCard(String id) {
-		for(Card card:getAllCards()) {
-			if(card.getCardNumber().equals(id)) {
-				card.getInValidAttempts();
-				card.setInValidAttempts(card.getInValidAttempts() + 1);
-				updateCard(card);
-				return card;
-			}
-		}
-		return null;
+	public Card recordInvalidAttemptOnCard(Card card) {
+		card.setInValidAttempts(card.getInValidAttempts() + 1);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card recordInvalidAttemptOnCardById(long id) {
+		Card card = getCardById(id);
+		card = recordInvalidAttemptOnCard(card);
+		return card;
+	}
+
+	@Override
+	public Card recordInvalidAttemptOnCardByNumber(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = recordInvalidAttemptOnCard(card);
+		return card;
+	}
+
+	@Override
+	public Card blockCard(Card card) {
+		card.setIsBlocked(true);
+		card = updateCard(card);
+		return card;
 		
 	}
 
 	@Override
-	public void deleteCard(Card card) {
-		cardDao.delete(card);
+	public Card blockCardById(long id) {
+		Card card = getCardById(id);
+		card = blockCard(card);
+		return card;
 	}
 
 	@Override
-	public void deleteCard(String id) {
-		cardDao.delete(getCardById(id));
+	public Card blockCardByNumber(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = blockCard(card);
+		return card;
 	}
 
-	public Card recordInvalidAttemopt(String id) {
-		for(Card card:getAllCards()) {
-			if(card.getCardNumber().equals(id)) {
-				card.getInValidAttempts();
-				card.setInValidAttempts(card.getInValidAttempts() + 1);
-				updateCard(card);
-				return card;
-			}
-		}
-		return null;
+	@Override
+	public Card unBlockCard(Card card) {
+		card.setIsBlocked(false);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card unBlockCardById(long id) {
+		Card card = getCardById(id);
+		card = unBlockCard(card);
+		return card;
+	}
+
+	@Override
+	public Card unBlockCardByNumber(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = unBlockCard(card);
+		return card;
+	}
+
+	@Override
+	public Card markCardAsDeleted(Card card) {
+		card.setIsDeleted(true);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card markCardByIdAsDeleted(long id) {
+		Card card = getCardById(id);
+		card = markCardAsDeleted(card);
+		return card;
+	}
+
+	@Override
+	public Card markCardByNumberAsDeleted(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = markCardAsDeleted(card);
+		return card;
+	}
+
+	@Override
+	public Card unMarkCardAsDeleted(Card card) {
+		card.setIsDeleted(false);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card unMarkCardByIdAsDeleted(long id) {
+		Card card = getCardById(id);
+		card = unMarkCardAsDeleted(card);
+		return card;
+	}
+
+	@Override
+	public Card unMarkCardByNumberAsDeleted(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = unMarkCardAsDeleted(card);
+		return card;
+	}
+
+	@Override
+	public Card deleteCardFromDatabase(Card card) {
+		cardDao.delete(card);
+		return card;
+	}
+
+	@Override
+	public Card deleteCardFromDatabaseById(long id) {
+		Card card = getCardById(id);
+		card = deleteCardFromDatabase(card);
+		return card;
+	}
+
+	@Override
+	public Card deleteCardFromDatabaseByNumber(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = deleteCardFromDatabase(card);
+		return card;
 	}
 }

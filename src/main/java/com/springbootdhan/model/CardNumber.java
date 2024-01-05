@@ -1,13 +1,13 @@
-package com.springbootdhan.entity;
+package com.springbootdhan.model;
 
-public class InValidCard {
+public class CardNumber {
 	private String cardNumber;
 
-	public InValidCard() {
+	public CardNumber() {
 		super();
 	}
 
-	public InValidCard(String cardNumber) {
+	public CardNumber(String cardNumber) {
 		super();
 		this.cardNumber = cardNumber;
 	}
