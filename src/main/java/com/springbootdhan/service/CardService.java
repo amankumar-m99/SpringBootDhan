@@ -18,6 +18,14 @@ public interface CardService {
 	public Card recordInvalidAttemptOnCard(Card card);
 	public Card recordInvalidAttemptOnCardById(long id);
 	public Card recordInvalidAttemptOnCardByNumber(String cardNumber);
+	//patch: reset Invalid Attempts
+	public Card resetInvalidAttemptOnCard(Card card);
+	public Card resetInvalidAttemptOnCardById(long id);
+	public Card resetInvalidAttemptOnCardByNumber(String cardNumber);
+	//patch:change-pin
+	public Card changePin(Card card, String newPin);
+	public Card changePinById(long id, String newPin);
+	public Card changePinByNumber(String cardNumber, String newPin);
 	//patch:block
 	public Card blockCard(Card card);
 	public Card blockCardById(long id);

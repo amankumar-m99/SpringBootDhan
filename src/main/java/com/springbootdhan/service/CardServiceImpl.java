@@ -61,7 +61,10 @@ public class CardServiceImpl implements CardService {
 
 	@Override
 	public Card recordInvalidAttemptOnCard(Card card) {
-		card.setInValidAttempts(card.getInValidAttempts() + 1);
+		int invalidAttempts = card.getInValidAttempts() + 1;
+		card.setInValidAttempts(invalidAttempts);
+		if(invalidAttempts == 3)
+			card.setIsBlocked(true);
 		card = updateCard(card);
 		return card;
 	}
@@ -77,6 +80,49 @@ public class CardServiceImpl implements CardService {
 	public Card recordInvalidAttemptOnCardByNumber(String cardNumber) {
 		Card card = getCardByNumber(cardNumber);
 		card = recordInvalidAttemptOnCard(card);
+		return card;
+	}
+
+	@Override
+	public Card resetInvalidAttemptOnCard(Card card) {
+		card.setInValidAttempts(0);
+		card.setIsBlocked(false);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card resetInvalidAttemptOnCardById(long id) {
+		Card card = getCardById(id);
+		card = resetInvalidAttemptOnCard(card);
+		return card;
+	}
+
+	@Override
+	public Card resetInvalidAttemptOnCardByNumber(String cardNumber) {
+		Card card = getCardByNumber(cardNumber);
+		card = resetInvalidAttemptOnCard(card);
+		return card;
+	}
+
+	@Override
+	public Card changePin(Card card, String newPin) {
+		card.setPin(newPin);
+		card = updateCard(card);
+		return card;
+	}
+
+	@Override
+	public Card changePinById(long id, String newPin) {
+		Card card = getCardById(id);
+		card = changePin(card, newPin);
+		return card;
+	}
+
+	@Override
+	public Card changePinByNumber(String cardNumber, String newPin) {
+		Card card = getCardByNumber(cardNumber);
+		card = changePin(card, newPin);
 		return card;
 	}
 

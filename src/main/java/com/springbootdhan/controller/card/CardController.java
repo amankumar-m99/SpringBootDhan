@@ -21,6 +21,7 @@ import com.springbootdhan.entity.Card;
 import com.springbootdhan.model.CardForm;
 import com.springbootdhan.model.CardId;
 import com.springbootdhan.model.CardNumber;
+import com.springbootdhan.model.PinChangeForm;
 import com.springbootdhan.service.AccountService;
 import com.springbootdhan.service.CardService;
 import com.springbootdhan.util.Validator;
@@ -76,22 +77,47 @@ public class CardController {
 	}
 
 	//patch:invalid attempts
-	@PatchMapping(path = "/card/id/invalidattempts", consumes = "application/json")
+	@PatchMapping(path = "/card/id/record-invalidattempts", consumes = "application/json")
 	public Card recordInValidAttemptsById(@RequestBody CardId cardId) {
-		return cardService.recordInvalidAttemptOnCardById(cardId.getId());
+		return cardService.recordInvalidAttemptOnCardById(cardId.getCardId());
 	}
 
-	@PatchMapping(path = "/card/number/invalidattempts", consumes = "application/json")
+	@PatchMapping(path = "/card/number/record-invalidattempts", consumes = "application/json")
 	public Card recordInValidAttemptsByNumber(@RequestBody CardNumber cardNumber) {
 		if(!Validator.isStringNumeric(cardNumber.getCardNumber()))
 			return null;
 		return cardService.recordInvalidAttemptOnCardByNumber(cardNumber.getCardNumber());
 	}
+	///////
+	@PatchMapping(path = "/card/id/reset-invalidattempts", consumes = "application/json")
+	public Card resetInValidAttemptsById(@RequestBody CardId cardId) {
+		return cardService.resetInvalidAttemptOnCardById(cardId.getCardId());
+	}
+
+	@PatchMapping(path = "/card/number/reset-invalidattempts", consumes = "application/json")
+	public Card resetInValidAttemptsByNumber(@RequestBody CardNumber cardNumber) {
+		if(!Validator.isStringNumeric(cardNumber.getCardNumber()))
+			return null;
+		return cardService.resetInvalidAttemptOnCardByNumber(cardNumber.getCardNumber());
+	}
+
+	//patch:change-pin
+	@PatchMapping(path = "/card/number/change-pin")
+	public Card changePinByNumber(@RequestBody PinChangeForm pinChangeForm) {
+		String cardNumber = pinChangeForm.getCardNumber();
+		Card card = cardService.changePinByNumber(cardNumber, pinChangeForm.getPin());
+		return card;
+	}
+
+	@PatchMapping(path = "/card/id/change-pin")
+	public Card changePinById(@RequestBody PinChangeForm pinChangeForm) {
+		return null;
+	}
 
 	//patch:block
 	@PatchMapping(path = "/card/id/block/")
 	public Card blockCardById(@RequestBody CardId cardId) {
-		return cardService.blockCardById(cardId.getId());
+		return cardService.blockCardById(cardId.getCardId());
 	}
 
 	@PatchMapping(path = "/card/number/block/")
@@ -104,7 +130,7 @@ public class CardController {
 	//patch:unblock
 	@PatchMapping(path = "/card/id/unblock/")
 	public Card unBlockCardById(@RequestBody CardId cardId) {
-		return cardService.unBlockCardById(cardId.getId());
+		return cardService.unBlockCardById(cardId.getCardId());
 	}
 
 	@PatchMapping(path = "/card/number/unblock/")
@@ -117,7 +143,7 @@ public class CardController {
 	//patch:mark delete
 	@PatchMapping(path="/card/id/mark-delete/")
 	public Card markCardByIdAsDeleted(@RequestBody CardId cardId) {
-		return cardService.markCardByIdAsDeleted(cardId.getId());
+		return cardService.markCardByIdAsDeleted(cardId.getCardId());
 	}
 
 	@PatchMapping(path="/card/number/mark-delete/")
@@ -130,7 +156,7 @@ public class CardController {
 	//patch:unmark delete
 	@PatchMapping(path = "/card/id/unmark-delete/")
 	public Card unMarkCardByIdAsDeleted(@RequestBody CardId cardId) {
-		return cardService.unMarkCardByIdAsDeleted(cardId.getId());
+		return cardService.unMarkCardByIdAsDeleted(cardId.getCardId());
 	}
 
 	@PatchMapping(path = "/card/number/unmark-delete/")

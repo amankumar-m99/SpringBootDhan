@@ -1,22 +1,22 @@
 package com.springbootdhan.model;
 
 public class CardId {
-	private long id;
+	private long cardId;
 
 	public CardId() {
 		super();
 	}
 
-	public CardId(long id) {
+	public CardId(long cardId) {
 		super();
-		this.id = id;
+		this.cardId = cardId;
 	}
 
-	public long getId() {
-		return id;
+	public long getCardId() {
+		return cardId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setCardId(long cardId) {
+		this.cardId = cardId;
 	}
 }

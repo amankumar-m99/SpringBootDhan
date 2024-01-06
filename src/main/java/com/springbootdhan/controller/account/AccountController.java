@@ -90,7 +90,7 @@ public class AccountController {
 
 	//patch : deposit
 	@PatchMapping("/account/deposit")
-	public Account depositById(@RequestBody DepositForm depositForm) {
+	public Account deposit(@RequestBody DepositForm depositForm) {
 		String accountNumber = depositForm.getAccountNumber();
 		String amountStr = depositForm.getAmount();
 		if(!Validator.isStringNumeric(amountStr))
@@ -132,13 +132,13 @@ public class AccountController {
 
 	//patch : block
 	@PatchMapping("/account/block")
-	public Account blockAccountByID(@RequestBody AccountNumber accountNumber) {
+	public Account blockAccount(@RequestBody AccountNumber accountNumber) {
 		return accountService.blockAccountByNumber(accountNumber.getAccountNumber());
 	}
 
 	//patch : unblock
 	@PatchMapping("/account/unblock")
-	public Account unBlockAccountByID(@RequestBody AccountNumber accountNumber) {
+	public Account unBlockAccount(@RequestBody AccountNumber accountNumber) {
 		return accountService.unBlockAccountByNumber(accountNumber.getAccountNumber());
 	}
 
@@ -149,8 +149,8 @@ public class AccountController {
 	}
 
 	//patch: mark undelete
-	@PatchMapping("/account/mark-undelete")
-	public Account markUndelete(@RequestBody AccountNumber accountNumber) {
+	@PatchMapping("/account/unmark-delete")
+	public Account unMarkdelete(@RequestBody AccountNumber accountNumber) {
 		return accountService.unMarkAccountByNumberAsDeleted(accountNumber.getAccountNumber());
 	}
 
