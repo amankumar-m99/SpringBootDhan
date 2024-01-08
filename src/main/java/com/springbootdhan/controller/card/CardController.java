@@ -105,7 +105,7 @@ public class CardController {
 	@PatchMapping(path = "/card/number/change-pin")
 	public Card changePinByNumber(@RequestBody PinChangeForm pinChangeForm) {
 		String cardNumber = pinChangeForm.getCardNumber();
-		Card card = cardService.changePinByNumber(cardNumber, pinChangeForm.getPin());
+		Card card = cardService.changePinByNumber(cardNumber, pinChangeForm.getNewPin());
 		return card;
 	}
 

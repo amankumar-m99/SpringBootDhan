@@ -2,15 +2,14 @@ package com.springbootdhan.model;
 
 public class PinChangeForm {
 	private String cardNumber;
-	private String pin;
+	private String newPin;
 	public PinChangeForm() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	public PinChangeForm(String cardNumber, String pin) {
+	public PinChangeForm(String cardNumber, String newPin) {
 		super();
 		this.cardNumber = cardNumber;
-		this.pin = pin;
+		this.newPin = newPin;
 	}
 	public String getCardNumber() {
 		return cardNumber;
@@ -18,11 +17,11 @@ public class PinChangeForm {
 	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
 	}
-	public String getPin() {
-		return pin;
+	public String getNewPin() {
+		return newPin;
 	}
-	public void setPin(String pin) {
-		this.pin = pin;
+	public void setNewPin(String pin) {
+		this.newPin = pin;
 	}
 	
 }

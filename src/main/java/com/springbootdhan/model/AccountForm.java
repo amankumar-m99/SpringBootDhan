@@ -2,12 +2,12 @@ package com.springbootdhan.model;
 
 public class AccountForm {
 	private String accountHolderName;
-	private float openingBalance;
+	private int openingBalance;
 	private boolean isCardRequested;
 	public AccountForm() {
 		super();
 	}
-	public AccountForm(String accountHolderName, float openingBalance, boolean isCardRequested) {
+	public AccountForm(String accountHolderName, int openingBalance, boolean isCardRequested) {
 		super();
 		this.accountHolderName = accountHolderName;
 		this.openingBalance = openingBalance;
@@ -19,10 +19,10 @@ public class AccountForm {
 	public void setAccountHolderName(String accountHolderName) {
 		this.accountHolderName = accountHolderName;
 	}
-	public float getOpeningBalance() {
+	public int getOpeningBalance() {
 		return openingBalance;
 	}
-	public void setOpeningBalance(float openingBalance) {
+	public void setOpeningBalance(int openingBalance) {
 		this.openingBalance = openingBalance;
 	}
 	public boolean isCardRequested() {
