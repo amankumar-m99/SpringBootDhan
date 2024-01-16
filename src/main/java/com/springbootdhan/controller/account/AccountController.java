@@ -20,6 +20,7 @@ import com.springbootdhan.data.StaticData;
 import com.springbootdhan.entity.Account;
 import com.springbootdhan.entity.Card;
 import com.springbootdhan.model.AccountForm;
+import com.springbootdhan.model.AccountId;
 import com.springbootdhan.model.AccountNumber;
 import com.springbootdhan.model.DepositForm;
 import com.springbootdhan.model.FundTransferForm;
@@ -76,7 +77,7 @@ public class AccountController {
 		Account account = new Account(accountForm);
 		account = accountService.addAccount(account);
 		if(accountForm.isCardRequested()) {
-			Card card = new Card(account);
+			Card card = new Card(account, accountForm.getAtmCardDetails());
 			cardService.addCard(card);
 		}
 		return account;
@@ -146,15 +147,15 @@ public class AccountController {
 	}
 
 	//patch: mark delete
-	@PatchMapping("/account/mark-delete")
-	public Account markDelete(@RequestBody AccountNumber accountNumber) {
-		return accountService.markAccountByNumberAsDeleted(accountNumber.getAccountNumber());
+	@PatchMapping("/account/id/mark-delete")
+	public Account markDeleteById(@RequestBody AccountId accountId) {
+		return accountService.markAccountByIdAsDeleted(Long.parseLong(accountId.getAccountId()));
 	}
 
 	//patch: mark undelete
-	@PatchMapping("/account/unmark-delete")
-	public Account unMarkdelete(@RequestBody AccountNumber accountNumber) {
-		return accountService.unMarkAccountByNumberAsDeleted(accountNumber.getAccountNumber());
+	@PatchMapping("/account/id/unmark-delete")
+	public Account unMarkdeleteById(@RequestBody AccountId accountId) {
+		return accountService.unMarkAccountByIdAsDeleted(Long.parseLong(accountId.getAccountId()));
 	}
 
 	//delete:by Id

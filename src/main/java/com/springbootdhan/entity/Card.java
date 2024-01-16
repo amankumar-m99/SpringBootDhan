@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.springbootdhan.model.ATMCardDetails;
 import com.springbootdhan.util.Formatter;
 
 import jakarta.persistence.Entity;
@@ -32,12 +33,15 @@ public class Card {
 	private boolean isDeleted;
 	@Transient
 	private static final int EXPIRY_YEAR_DURATION = 8;
+	@Transient
+	private ATMCardDetails atmCardDetails;
 	public Card() {
 		super();
 	}
-	public Card(Account account) {
+	public Card(Account account, ATMCardDetails atmCardDetails) {
 		super();
 		this.account = account;
+		this.atmCardDetails = atmCardDetails;
 //		this.account.setCard(this);
 		cardNumber = initCardNumber();
 		pin = initPin();
@@ -46,7 +50,7 @@ public class Card {
 		expiryYear = initExpiryYear();
 		inValidAttempts = 0;
 		isBlocked = false;
-		isActive = true;
+		isActive = atmCardDetails.isImmediateActive();
 		isDeleted = false;
 	}
 	private String initCardNumber() {
@@ -71,7 +75,7 @@ public class Card {
 	}
 	@SuppressWarnings("deprecation")
 	private int initExpiryYear() {
-		return (new Date().getYear() + 1900) + EXPIRY_YEAR_DURATION;
+		return (new Date().getYear() + 1900) + atmCardDetails.getValidityPeriod();
 	}
 	public long getId() {
 		return id;

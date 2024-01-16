@@ -157,6 +157,7 @@ public class AccountServiceImpl implements AccountService{
 	public Account markAccountByIdAsDeleted(long id) {
 		Account account = getAccountById(id);
 		account = markAccountAsDeleted(account);
+		account = blockAccount(account);
 		return account;
 	}
 

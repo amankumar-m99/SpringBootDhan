@@ -1,22 +1,22 @@
 package com.springbootdhan.model;
 
 public class AccountId {
-	private long id;
+	private String accountId;
 
 	public AccountId() {
 		super();
 	}
 
-	public AccountId(long id) {
+	public AccountId(String accountId) {
 		super();
-		this.id = id;
+		this.accountId = accountId;
 	}
 
-	public long getId() {
-		return id;
+	public String getAccountId() {
+		return accountId;
 	}
 
-	public void setId(long id) {
-		this.id = id;
+	public void setAccountId(String id) {
+		this.accountId = id;
 	}
 }

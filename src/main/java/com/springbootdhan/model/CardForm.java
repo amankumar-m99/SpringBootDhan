@@ -5,7 +5,6 @@ public class CardForm {
 
 	public CardForm() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CardForm(String accountNumber) {
